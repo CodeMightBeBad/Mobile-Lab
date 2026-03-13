@@ -30,7 +30,7 @@ class SettingsScreen : ComponentActivity() {
         setContent {
             TravelDiaryTheme {
                 Scaffold(
-                    topBar = { TopBar() }
+                    topBar = { SettingsTopBar() }
                 ) { innerPadding ->
                     Column(
                         modifier = Modifier.padding(innerPadding),
@@ -42,34 +42,34 @@ class SettingsScreen : ComponentActivity() {
             }
         }
     }
+}
 
-    @OptIn(ExperimentalMaterial3Api::class)
-    @Composable
-    fun TopBar() {
-        CenterAlignedTopAppBar (
-            colors = TopAppBarDefaults.topAppBarColors(
-                containerColor = MaterialTheme.colorScheme.primaryContainer,
-                titleContentColor = MaterialTheme.colorScheme.primary
-            ),
-            title = {
-                Text("Settings")
-            }
-        )
-    }
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun SettingsTopBar() {
+    CenterAlignedTopAppBar (
+        colors = TopAppBarDefaults.topAppBarColors(
+            containerColor = MaterialTheme.colorScheme.primaryContainer,
+            titleContentColor = MaterialTheme.colorScheme.primary
+        ),
+        title = {
+            Text("Settings")
+        }
+    )
+}
 
-    @Composable
-    fun SettingsTextField() {
-        OutlinedTextField(
-            value = "username",
-            onValueChange = {},
-            label = { Text("Username") },
-            modifier = Modifier
-                .padding(15.dp)
-                .fillMaxWidth()
-        )
+@Composable
+fun SettingsTextField() {
+    OutlinedTextField(
+        value = "username",
+        onValueChange = {},
+        label = { Text("Username") },
+        modifier = Modifier
+            .padding(15.dp)
+            .fillMaxWidth()
+    )
 
-        Spacer(Modifier.size(10.dp))
+    Spacer(Modifier.size(10.dp))
 
-        Text("username")
-    }
+    Text("username")
 }
