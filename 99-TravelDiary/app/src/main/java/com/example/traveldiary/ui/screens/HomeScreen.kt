@@ -57,7 +57,12 @@ class HomeScreen : ComponentActivity() {
                     }
                 }
             ) { innerPadding ->
-                Column(Modifier.padding(innerPadding)) {
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier
+                        .padding(innerPadding)
+                        .fillMaxWidth()
+                ) {
                     TraversList()
                 }
             }
@@ -146,10 +151,9 @@ fun TravelCard(text: String) {
 fun TraversList() {
     // FlowRow is used to let me set a max number of items per row
     FlowRow(
-        horizontalArrangement = Arrangement.Center,
+        horizontalArrangement = Arrangement.Absolute.Left,
         modifier = Modifier
             .padding(4.dp)
-            .fillMaxWidth()
             .verticalScroll(rememberScrollState())
     ) {
         TravelCard("Test 1")
