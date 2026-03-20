@@ -1,25 +1,15 @@
 package com.example.traveldiary.ui.screens
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.requiredSize
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.MyLocation
-import androidx.compose.material.icons.outlined.Image
-import androidx.compose.material.icons.outlined.PhotoCamera
+import androidx.compose.material.icons.outlined.CameraAlt
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.Button
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -28,137 +18,83 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-
-class AddTravelScreen : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-
-        setContent {
-            Scaffold(
-                topBar = { AddTravelTopBar() },
-                floatingActionButton = {
-                    FloatingActionButton(onClick = { }) {
-                        Icon(Icons.Filled.Check, "Confirm")
-                    }
-                }
-            ) { innerPadding ->
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = Modifier
-                        .padding(innerPadding)
-                        .fillMaxWidth()
-                ) {
-                    LocationTextField("Destination")
-                    TravelTextField("Date")
-                    TravelTextField("Description")
-
-                    Spacer(Modifier.size(20.dp))
-
-                    PictureButton()
-
-                    Spacer(Modifier.size(20.dp))
-
-                    ImageIcon()
-                }
-            }
-        }
-    }
-}
+import androidx.navigation.NavHostController
+import com.example.traveldiary.NavigationRoute
+import com.example.traveldiary.ui.RoundedImage
+import com.example.traveldiary.ui.TextBox
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddTravelTopBar() {
-    CenterAlignedTopAppBar(
-        colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer,
-            titleContentColor = MaterialTheme.colorScheme.primary
-        ),
-        title = { Text("Add Travel") },
-        actions = {
-            IconButton(
-                onClick = {}
-            ) {
-                Icon(Icons.Outlined.Settings, "Settings")
+fun AddTravelScreen(navController: NavHostController) {
+    Scaffold(
+        topBar = {
+            CenterAlignedTopAppBar(
+                title = { Text("Add Travel") },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.primaryContainer,
+                    titleContentColor = MaterialTheme.colorScheme.primary
+                ),
+                actions = {
+                    IconButton(onClick = { navController.navigate(NavigationRoute.SettingsScreen) }) {
+                        Icon(Icons.Outlined.Settings, "Setting")
+                    }
+                },
+                navigationIcon = {
+                    IconButton(onClick = { navController.navigateUp() }) {
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, "Go back")
+                    }
+                }
+            )
+        },
+        floatingActionButton = {
+            FloatingActionButton(onClick = {}) {
+                Icon(Icons.Filled.Check, "Confirm")
             }
         }
-    )
-}
-
-@Composable
-fun TravelTextField(placeholder: String) {
-    OutlinedTextField(
-        value = "",
-        onValueChange = { },
-        label = { Text(placeholder) },
-        modifier = Modifier
-            .padding(10.dp, 5.dp)
-            .fillMaxWidth()
-    )
-}
-
-@Composable
-fun LocationTextField(placeholder: String) {
-    OutlinedTextField(
-        value = "",
-        onValueChange = { },
-        label = { Text(placeholder) },
-        modifier = Modifier
-            .padding(10.dp, 5.dp)
-            .fillMaxWidth(),
-        trailingIcon = { Icon(Icons.Filled.MyLocation, "My location") }
-    )
-}
-
-@Composable
-fun PictureButton() {
-    Button (
-        modifier = Modifier
-            .requiredSize(200.dp, 50.dp)
-            .clip(CircleShape),
-        onClick = { }
-    ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center,
+    ) { innerPadding ->
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
-                .requiredSize(130.dp, 30.dp)
-                .padding(5.dp)
+                .padding(innerPadding)
+                .fillMaxWidth()
+                .padding(15.dp)
         ) {
-            Icon(Icons.Outlined.PhotoCamera, "Camera")
-            Spacer(Modifier.size(10.dp))
-            Text("Take a picture")
-        }
-    }
-}
+            TextBox(
+                label = "Destination",
+                boxIcon = {
+                    Icon(Icons.Filled.MyLocation, "Location")
+                }
+            )
 
-@Composable
-fun ImageIcon() {
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier
-            .size(100.dp)
-            .clip(CircleShape)
-            .background(MaterialTheme.colorScheme.primary)
-            .padding(15.dp)
-    ) {
-        // Image of the card
-        Icon(
-            imageVector = Icons.Outlined.Image,
-            contentDescription = "Travel Image",
-            modifier = Modifier
-                .fillMaxSize(),
-            tint = Color.White
-        )
+            TextBox("Date")
+            TextBox("Description")
+
+            Button(
+                onClick = {},
+                modifier = Modifier
+                    .padding(50.dp)
+            ) {
+                Row(
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier
+                ) {
+                    Icon(Icons.Outlined.CameraAlt, "Camera")
+                    Text(
+                        text = "Take a picture",
+                        modifier = Modifier.padding(5.dp)
+                    )
+                }
+            }
+
+            RoundedImage(150.dp)
+        }
     }
 }
