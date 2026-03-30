@@ -1,16 +1,16 @@
 package com.example.traveldiary.ui.screens
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
@@ -20,56 +20,46 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.traveldiary.ui.theme.TravelDiaryTheme
-
-class SettingsScreen : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-
-        setContent {
-            TravelDiaryTheme {
-                Scaffold(
-                    topBar = { SettingsTopBar() }
-                ) { innerPadding ->
-                    Column(
-                        modifier = Modifier.padding(innerPadding),
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        SettingsTextField()
-                    }
-                }
-            }
-        }
-    }
-}
+import androidx.navigation.NavHostController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SettingsTopBar() {
-    CenterAlignedTopAppBar (
-        colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer,
-            titleContentColor = MaterialTheme.colorScheme.primary
-        ),
-        title = {
-            Text("Settings")
+fun SettingsScreen(navController: NavHostController) {
+    Scaffold(
+        topBar = {
+            CenterAlignedTopAppBar(
+                title = { Text("Settings") },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.primaryContainer,
+                    titleContentColor = MaterialTheme.colorScheme.primary
+                ),
+                navigationIcon = {
+                    IconButton(onClick = { navController.navigateUp() }) {
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, "Back")
+                    }
+                }
+            )
         }
-    )
-}
+    ) { innerPadding ->
+        val user = "username"
 
-@Composable
-fun SettingsTextField() {
-    OutlinedTextField(
-        value = "username",
-        onValueChange = {},
-        label = { Text("Username") },
-        modifier = Modifier
-            .padding(15.dp)
-            .fillMaxWidth()
-    )
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier
+                .padding(innerPadding)
+                .fillMaxWidth()
+                .padding(15.dp)
+        ) {
+            OutlinedTextField(
+                value = user,
+                onValueChange = {},
+                label = { Text("Username") },
+                modifier = Modifier.fillMaxWidth()
+            )
 
-    Spacer(Modifier.size(10.dp))
+            Spacer(Modifier.size(30.dp))
 
-    Text("username")
+            Text(user)
+        }
+    }
 }

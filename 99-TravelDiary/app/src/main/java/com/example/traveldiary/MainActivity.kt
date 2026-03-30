@@ -4,14 +4,17 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.example.traveldiary.ui.screens.AddTravelScreen
+import com.example.traveldiary.ui.screens.HomeScreen
+import com.example.traveldiary.ui.screens.SettingsScreen
+import com.example.traveldiary.ui.screens.TravelDetailsScreen
 import com.example.traveldiary.ui.theme.TravelDiaryTheme
+import kotlinx.serialization.Serializable
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,29 +22,40 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             TravelDiaryTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                val navController = rememberNavController()
+                NavGraph(navController)
             }
         }
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
+sealed interface NavigationRoute {
+    @Serializable data object Homescreen : NavigationRoute
+    @Serializable data object AddTravelScreen: NavigationRoute
+    @Serializable data object SettingsScreen: NavigationRoute
+    @Serializable data object TravelDetailsScreen: NavigationRoute
 }
 
-@Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
-    TravelDiaryTheme {
-        Greeting("Android")
+fun NavGraph(navHostController: NavHostController) {
+    NavHost(
+        navHostController,
+        startDestination = NavigationRoute.Homescreen
+    ) {
+        composable<NavigationRoute.Homescreen> {
+            HomeScreen(navHostController)
+        }
+
+        composable<NavigationRoute.AddTravelScreen> {
+            AddTravelScreen(navHostController)
+        }
+
+        composable<NavigationRoute.SettingsScreen> {
+            SettingsScreen(navHostController)
+        }
+
+        composable<NavigationRoute.TravelDetailsScreen> {
+            TravelDetailsScreen(navHostController)
+        }
     }
 }
