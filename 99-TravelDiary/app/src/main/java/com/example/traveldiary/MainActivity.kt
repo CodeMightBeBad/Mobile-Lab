@@ -9,10 +9,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.traveldiary.ui.screens.AddTravelScreen
-import com.example.traveldiary.ui.screens.HomeScreen
-import com.example.traveldiary.ui.screens.SettingsScreen
-import com.example.traveldiary.ui.screens.TravelDetailsScreen
+import com.example.traveldiary.ui.screens.addTravel.AddTravelScreen
+import com.example.traveldiary.ui.screens.home.HomeScreen
+import com.example.traveldiary.ui.screens.settings.SettingsScreen
+import com.example.traveldiary.ui.screens.travelDetails.TravelDetailsScreen
 import com.example.traveldiary.ui.theme.TravelDiaryTheme
 import kotlinx.serialization.Serializable
 

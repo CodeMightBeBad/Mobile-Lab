@@ -1,15 +1,17 @@
-package com.example.traveldiary.ui.screens
+package com.example.traveldiary.ui.screens.addTravel
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.MyLocation
+import androidx.compose.material.icons.outlined.CameraAlt
 import androidx.compose.material.icons.outlined.Settings
-import androidx.compose.material.icons.outlined.Share
+import androidx.compose.material3.Button
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
@@ -26,33 +28,34 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.traveldiary.NavigationRoute
 import com.example.traveldiary.ui.RoundedImage
+import com.example.traveldiary.ui.TextBox
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TravelDetailsScreen(navController: NavHostController) {
+fun AddTravelScreen(navController: NavHostController) {
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
-                title = { Text("Travel Details") },
+                title = { Text("Add Travel") },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
                     titleContentColor = MaterialTheme.colorScheme.primary
                 ),
                 actions = {
                     IconButton(onClick = { navController.navigate(NavigationRoute.SettingsScreen) }) {
-                        Icon(Icons.Outlined.Settings, "Settings")
+                        Icon(Icons.Outlined.Settings, "Setting")
                     }
                 },
                 navigationIcon = {
                     IconButton(onClick = { navController.navigateUp() }) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, "Back")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, "Go back")
                     }
                 }
             )
         },
         floatingActionButton = {
-            FloatingActionButton(onClick = {  }) {
-                Icon(Icons.Outlined.Share, "Share")
+            FloatingActionButton(onClick = {}) {
+                Icon(Icons.Filled.Check, "Confirm")
             }
         }
     ) { innerPadding ->
@@ -60,28 +63,38 @@ fun TravelDetailsScreen(navController: NavHostController) {
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .padding(innerPadding)
-                .fillMaxSize()
-                .padding(10.dp)
                 .fillMaxWidth()
+                .padding(15.dp)
         ) {
-            Spacer(Modifier.size(20.dp))
-            RoundedImage(size = 150.dp)
+            TextBox(
+                label = "Destination",
+                boxIcon = {
+                    Icon(Icons.Filled.MyLocation, "Location")
+                }
+            )
 
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.padding(20.dp)
+            TextBox("Date")
+            TextBox("Description")
+
+            Button(
+                onClick = {},
+                modifier = Modifier
+                    .padding(50.dp)
             ) {
-                Text(
-                    text = "Destination",
-                    style = MaterialTheme.typography.headlineSmall
-                )
-                Text(
-                    text = "01/01/2026",
-                    style = MaterialTheme.typography.bodyMedium
-                )
+                Row(
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier
+                ) {
+                    Icon(Icons.Outlined.CameraAlt, "Camera")
+                    Text(
+                        text = "Take a picture",
+                        modifier = Modifier.padding(5.dp)
+                    )
+                }
             }
 
-            Text("Description")
+            RoundedImage(150.dp)
         }
     }
 }
