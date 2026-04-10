@@ -19,8 +19,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.traveldiary.ui.NavigationRoute
-import com.example.traveldiary.ui.TravelCard
 import com.example.traveldiary.ui.composables.AppBar
+import com.example.traveldiary.ui.composables.TravelCard
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

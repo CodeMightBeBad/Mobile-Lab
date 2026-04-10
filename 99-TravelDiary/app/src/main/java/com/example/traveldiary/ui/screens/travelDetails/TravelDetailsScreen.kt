@@ -19,8 +19,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.example.traveldiary.ui.RoundedImage
 import com.example.traveldiary.ui.composables.AppBar
+import com.example.traveldiary.ui.composables.RoundedImage
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
