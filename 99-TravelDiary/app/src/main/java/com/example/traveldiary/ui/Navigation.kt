@@ -1,10 +1,13 @@
 package com.example.traveldiary.ui
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.traveldiary.ui.screens.addTravel.AddTravelScreen
+import com.example.traveldiary.ui.screens.addTravel.AddTravelViewModel
 import com.example.traveldiary.ui.screens.home.HomeScreen
 import com.example.traveldiary.ui.screens.settings.SettingsScreen
 import com.example.traveldiary.ui.screens.settings.SettingsViewModel
@@ -30,11 +33,19 @@ fun NavGraph(navHostController: NavHostController) {
         }
 
         composable<NavigationRoute.AddTravelScreen> {
-            AddTravelScreen(navHostController)
+            val addTravelViewModel = koinViewModel<AddTravelViewModel>()
+            val state by addTravelViewModel.state.collectAsStateWithLifecycle()
+
+            AddTravelScreen(
+                state = state,
+                actions = addTravelViewModel.actions,
+                navController = navHostController
+            )
         }
 
         composable<NavigationRoute.SettingsScreen> {
             val settingsViewModel = koinViewModel<SettingsViewModel>()
+
             SettingsScreen(
                 username = settingsViewModel.username,
                 onUsernameChange = settingsViewModel::updateUsername,

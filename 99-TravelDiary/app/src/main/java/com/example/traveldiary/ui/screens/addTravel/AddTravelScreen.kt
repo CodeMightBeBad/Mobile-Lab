@@ -7,12 +7,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
-import androidx.compose.material.icons.filled.MyLocation
 import androidx.compose.material.icons.outlined.CameraAlt
+import androidx.compose.material.icons.outlined.MyLocation
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,11 +24,14 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.traveldiary.ui.composables.AppBar
 import com.example.traveldiary.ui.composables.RoundedImage
-import com.example.traveldiary.ui.composables.TextBox
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddTravelScreen(navController: NavHostController) {
+fun AddTravelScreen(
+    state: AddTravelState,
+    actions: AddTravelActions,
+    navController: NavHostController
+) {
     Scaffold(
         topBar = {
             AppBar(
@@ -48,15 +53,34 @@ fun AddTravelScreen(navController: NavHostController) {
                 .fillMaxWidth()
                 .padding(15.dp)
         ) {
-            TextBox(
-                label = "Destination",
-                boxIcon = {
-                    Icon(Icons.Filled.MyLocation, "Location")
+            // Destination text box
+            OutlinedTextField(
+                value = state.destination,
+                onValueChange = actions.setDestination,
+                label = { Text("Destination") },
+                modifier = Modifier.fillMaxWidth(),
+                trailingIcon = {
+                    IconButton(onClick = {}) {
+                        Icon(Icons.Outlined.MyLocation, "Current location")
+                    }
                 }
             )
 
-            TextBox("Date")
-            TextBox("Description")
+            // Date text box
+            OutlinedTextField(
+                value = state.date,
+                onValueChange = actions.setDate,
+                label = { Text("Date") },
+                modifier = Modifier.fillMaxWidth()
+            )
+
+            // Description text box
+            OutlinedTextField(
+                value = state.description,
+                onValueChange = actions.setDescription,
+                label = { Text("Description") },
+                modifier = Modifier.fillMaxWidth()
+            )
 
             Button(
                 onClick = {},
