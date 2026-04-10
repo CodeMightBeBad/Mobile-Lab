@@ -9,45 +9,27 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.outlined.Settings
-import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.example.traveldiary.NavigationRoute
+import com.example.traveldiary.ui.NavigationRoute
 import com.example.traveldiary.ui.TravelCard
+import com.example.traveldiary.ui.composables.AppBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(navController: NavHostController) {
     Scaffold(
         topBar = {
-            CenterAlignedTopAppBar(
-                title = { Text("TraverDiary") },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    titleContentColor = MaterialTheme.colorScheme.primary
-                ),
-                actions = {
-                    IconButton(onClick = { }) {
-                        Icon(Icons.Filled.Search, "Search")
-                    }
-
-                    IconButton(onClick = { navController.navigate(NavigationRoute.SettingsScreen) }) {
-                        Icon(Icons.Outlined.Settings, "Settings")
-                    }
-                }
+            AppBar(
+                title = "Travel Diary",
+                navController = navController
             )
         },
         floatingActionButton = {
