@@ -33,7 +33,7 @@ fun HomeScreen(navController: NavHostController) {
             )
         },
         floatingActionButton = {
-            FloatingActionButton(onClick = { navController.navigate(NavigationRoute.AddTravelScreen) }) {
+            FloatingActionButton(onClick = { navController.navigate(NavigationRoute.AddTravel) }) {
                 Icon(Icons.Filled.Add, "Add")
             }
         }

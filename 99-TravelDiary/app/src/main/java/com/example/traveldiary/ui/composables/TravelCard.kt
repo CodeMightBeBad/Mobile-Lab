@@ -22,7 +22,7 @@ import com.example.traveldiary.ui.NavigationRoute
 @Composable
 fun TravelCard(text: String, navController: NavHostController) {
     Card (
-        onClick = { navController.navigate(NavigationRoute.TravelDetailsScreen) },
+        onClick = { navController.navigate(NavigationRoute.TravelDetails) },
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.secondaryContainer
         ),

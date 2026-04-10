@@ -16,23 +16,23 @@ import kotlinx.serialization.Serializable
 import org.koin.androidx.compose.koinViewModel
 
 sealed interface NavigationRoute {
-    @Serializable data object Homescreen : NavigationRoute
-    @Serializable data object AddTravelScreen: NavigationRoute
-    @Serializable data object SettingsScreen: NavigationRoute
-    @Serializable data object TravelDetailsScreen: NavigationRoute
+    @Serializable data object Home : NavigationRoute
+    @Serializable data object AddTravel: NavigationRoute
+    @Serializable data object Settings: NavigationRoute
+    @Serializable data object TravelDetails: NavigationRoute
 }
 
 @Composable
 fun NavGraph(navHostController: NavHostController) {
     NavHost(
         navHostController,
-        startDestination = NavigationRoute.Homescreen
+        startDestination = NavigationRoute.Home
     ) {
-        composable<NavigationRoute.Homescreen> {
+        composable<NavigationRoute.Home> {
             HomeScreen(navHostController)
         }
 
-        composable<NavigationRoute.AddTravelScreen> {
+        composable<NavigationRoute.AddTravel> {
             val addTravelViewModel = koinViewModel<AddTravelViewModel>()
             val state by addTravelViewModel.state.collectAsStateWithLifecycle()
 
@@ -43,7 +43,7 @@ fun NavGraph(navHostController: NavHostController) {
             )
         }
 
-        composable<NavigationRoute.SettingsScreen> {
+        composable<NavigationRoute.Settings> {
             val settingsViewModel = koinViewModel<SettingsViewModel>()
 
             SettingsScreen(
@@ -53,7 +53,7 @@ fun NavGraph(navHostController: NavHostController) {
             )
         }
 
-        composable<NavigationRoute.TravelDetailsScreen> {
+        composable<NavigationRoute.TravelDetails> {
             TravelDetailsScreen(navHostController)
         }
     }

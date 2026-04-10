@@ -40,7 +40,7 @@ fun AppBar(
             }
 
             if (showSettings) {
-                IconButton(onClick = { navController.navigate(NavigationRoute.SettingsScreen) }) {
+                IconButton(onClick = { navController.navigate(NavigationRoute.Settings) }) {
                     Icon(Icons.Outlined.Settings, "Settings")
                 }
             }
