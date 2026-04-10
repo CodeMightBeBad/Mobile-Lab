@@ -18,7 +18,11 @@ import com.example.traveldiary.ui.composables.AppBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SettingsScreen(navController: NavHostController) {
+fun SettingsScreen(
+    username: String,
+    onUsernameChange: (String) -> Unit,
+    navController: NavHostController
+) {
     Scaffold(
         topBar = {
             AppBar(
@@ -29,8 +33,6 @@ fun SettingsScreen(navController: NavHostController) {
             )
         }
     ) { innerPadding ->
-        val user = "username"
-
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
@@ -39,15 +41,15 @@ fun SettingsScreen(navController: NavHostController) {
                 .padding(15.dp)
         ) {
             OutlinedTextField(
-                value = user,
-                onValueChange = {},
+                value = username,
+                onValueChange = onUsernameChange,
                 label = { Text("Username") },
                 modifier = Modifier.fillMaxWidth()
             )
 
             Spacer(Modifier.size(30.dp))
 
-            Text(user)
+            Text(username)
         }
     }
 }

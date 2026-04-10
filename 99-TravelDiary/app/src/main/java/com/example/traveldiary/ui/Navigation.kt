@@ -7,8 +7,10 @@ import androidx.navigation.compose.composable
 import com.example.traveldiary.ui.screens.addTravel.AddTravelScreen
 import com.example.traveldiary.ui.screens.home.HomeScreen
 import com.example.traveldiary.ui.screens.settings.SettingsScreen
+import com.example.traveldiary.ui.screens.settings.SettingsViewModel
 import com.example.traveldiary.ui.screens.travelDetails.TravelDetailsScreen
 import kotlinx.serialization.Serializable
+import org.koin.androidx.compose.koinViewModel
 
 sealed interface NavigationRoute {
     @Serializable data object Homescreen : NavigationRoute
@@ -32,7 +34,12 @@ fun NavGraph(navHostController: NavHostController) {
         }
 
         composable<NavigationRoute.SettingsScreen> {
-            SettingsScreen(navHostController)
+            val settingsViewModel = koinViewModel<SettingsViewModel>()
+            SettingsScreen(
+                username = settingsViewModel.username,
+                onUsernameChange = settingsViewModel::updateUsername,
+                navController = navHostController
+            )
         }
 
         composable<NavigationRoute.TravelDetailsScreen> {
