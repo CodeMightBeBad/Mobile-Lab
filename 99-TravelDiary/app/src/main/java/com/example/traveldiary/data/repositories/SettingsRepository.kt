@@ -11,13 +11,9 @@ class SettingsRepository(private val dataStore: DataStore<Preferences>) {
         private val USERNAME_KEY = stringPreferencesKey("USERNAME")
     }
 
-    val username = dataStore.data.map { preferences ->
-        preferences[USERNAME_KEY] ?: "username"
-    }
+    val username = dataStore.data.map { it[USERNAME_KEY] ?: "" }
 
     suspend fun setUsername(newUsername: String) {
-        dataStore.edit { preferences ->
-            preferences[USERNAME_KEY] = newUsername
-        }
+        dataStore.edit { it[USERNAME_KEY] = newUsername }
     }
 }
