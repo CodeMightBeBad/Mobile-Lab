@@ -7,7 +7,6 @@ import com.example.todolist.data.repositories.TodosRepository
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 data class TodosState(val todos: List<Todo>)
