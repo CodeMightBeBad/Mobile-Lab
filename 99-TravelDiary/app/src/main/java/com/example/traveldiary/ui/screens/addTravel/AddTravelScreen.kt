@@ -33,6 +33,7 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.example.traveldiary.data.database.Travel
 import com.example.traveldiary.ui.composables.AppBar
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -53,7 +54,12 @@ fun AddTravelScreen(
         floatingActionButton = {
             FloatingActionButton(
                 containerColor = MaterialTheme.colorScheme.tertiary,
-                onClick = {}
+                onClick = {
+                    val newTravel = Travel(title = state.destination, date = state.date, description = state.description)
+                    actions.saveTravel(newTravel)
+
+                    navController.navigateUp()
+                }
             ) {
                 Icon(Icons.Filled.Check, "Add travel")
             }
