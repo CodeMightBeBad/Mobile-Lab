@@ -21,7 +21,7 @@ sealed interface NavigationRoute {
     @Serializable data object Home : NavigationRoute
     @Serializable data object AddTravel: NavigationRoute
     @Serializable data object Settings: NavigationRoute
-    @Serializable data class TravelDetails(val travelId: String) : NavigationRoute
+    @Serializable data class TravelDetails(val title: String, val date: String, val description: String) : NavigationRoute
 }
 
 @Composable
@@ -60,7 +60,7 @@ fun NavGraph(navHostController: NavHostController) {
 
         composable<NavigationRoute.TravelDetails> { backStackEntry ->
             val route = backStackEntry.toRoute<NavigationRoute.TravelDetails>()
-            TravelDetailsScreen(navHostController, route.travelId)
+            TravelDetailsScreen(route.title, route.date, route.description, navHostController)
         }
     }
 }

@@ -29,16 +29,22 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.traveldiary.ui.composables.AppBar
+import java.lang.invoke.TypeDescriptor
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TravelDetailsScreen(navController: NavHostController, travelId: String) {
+fun TravelDetailsScreen(
+    title: String,
+    date: String,
+    description: String,
+    navController: NavHostController
+) {
     val ctx = LocalContext.current
 
     fun share() {
         val sendIntent = Intent(Intent.ACTION_SEND).apply {
             type = "text/plain"
-            putExtra(Intent.EXTRA_TEXT, travelId)
+            putExtra(Intent.EXTRA_TEXT, title)
         }
 
         val shareIntent = Intent.createChooser(sendIntent, "Share travel")
@@ -84,12 +90,12 @@ fun TravelDetailsScreen(navController: NavHostController, travelId: String) {
                     .padding(36.dp)
             )
 
-            Text(travelId, style = MaterialTheme.typography.titleLarge)
-            Text("01/01/2026", style = MaterialTheme.typography.bodySmall)
+            Text(title, style = MaterialTheme.typography.titleLarge)
+            Text(date, style = MaterialTheme.typography.bodySmall)
 
             Spacer(Modifier.size(8.dp))
 
-            Text("Description", style = MaterialTheme.typography.bodyMedium)
+            Text(description, style = MaterialTheme.typography.bodyMedium)
         }
     }
 }

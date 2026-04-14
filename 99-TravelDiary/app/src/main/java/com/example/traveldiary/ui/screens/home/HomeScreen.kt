@@ -1,5 +1,6 @@
 package com.example.traveldiary.ui.screens.home
 
+import android.R
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -68,7 +69,7 @@ fun HomeScreen(
         ) {
             items(state.travels) { travel ->
                 TravelCard(travel.title) {
-                    navController.navigate(NavigationRoute.TravelDetails(travel.title))
+                    navController.navigate(NavigationRoute.TravelDetails(travel.title, travel.date, travel.description))
                 }
             }
         }
