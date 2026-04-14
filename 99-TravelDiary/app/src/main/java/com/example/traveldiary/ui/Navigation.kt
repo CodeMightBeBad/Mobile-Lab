@@ -6,6 +6,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.toRoute
 import com.example.traveldiary.ui.screens.addTravel.AddTravelScreen
 import com.example.traveldiary.ui.screens.addTravel.AddTravelViewModel
 import com.example.traveldiary.ui.screens.home.HomeScreen
@@ -19,7 +20,7 @@ sealed interface NavigationRoute {
     @Serializable data object Home : NavigationRoute
     @Serializable data object AddTravel: NavigationRoute
     @Serializable data object Settings: NavigationRoute
-    @Serializable data object TravelDetails: NavigationRoute
+    @Serializable data class TravelDetails(val travelId: String) : NavigationRoute
 }
 
 @Composable
@@ -53,8 +54,9 @@ fun NavGraph(navHostController: NavHostController) {
             )
         }
 
-        composable<NavigationRoute.TravelDetails> {
-            TravelDetailsScreen(navHostController)
+        composable<NavigationRoute.TravelDetails> { backStackEntry ->
+            val route = backStackEntry.toRoute<NavigationRoute.TravelDetails>()
+            TravelDetailsScreen(navHostController, route.travelId)
         }
     }
 }

@@ -1,29 +1,39 @@
 package com.example.traveldiary.ui.screens.addTravel
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
-import androidx.compose.material.icons.outlined.CameraAlt
+import androidx.compose.material.icons.outlined.Image
 import androidx.compose.material.icons.outlined.MyLocation
+import androidx.compose.material.icons.outlined.PhotoCamera
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.traveldiary.ui.composables.AppBar
-import com.example.traveldiary.ui.composables.RoundedImage
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -41,17 +51,21 @@ fun AddTravelScreen(
             )
         },
         floatingActionButton = {
-            FloatingActionButton(onClick = {}) {
-                Icon(Icons.Filled.Check, "Confirm")
+            FloatingActionButton(
+                containerColor = MaterialTheme.colorScheme.tertiary,
+                onClick = {}
+            ) {
+                Icon(Icons.Filled.Check, "Add travel")
             }
         }
     ) { innerPadding ->
         Column(
+            verticalArrangement = Arrangement.spacedBy(12.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .padding(innerPadding)
-                .fillMaxWidth()
-                .padding(15.dp)
+                .padding(12.dp)
+                .fillMaxSize()
         ) {
             // Destination text box
             OutlinedTextField(
@@ -82,25 +96,34 @@ fun AddTravelScreen(
                 modifier = Modifier.fillMaxWidth()
             )
 
+            Spacer(Modifier.size(24.dp))
+
             Button(
                 onClick = {},
-                modifier = Modifier
-                    .padding(50.dp)
+                contentPadding = ButtonDefaults.ButtonWithIconContentPadding
             ) {
-                Row(
-                    horizontalArrangement = Arrangement.Center,
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier
-                ) {
-                    Icon(Icons.Outlined.CameraAlt, "Camera")
-                    Text(
-                        text = "Take a picture",
-                        modifier = Modifier.padding(5.dp)
-                    )
-                }
+                Icon(
+                    imageVector = Icons.Outlined.PhotoCamera,
+                    contentDescription = "Camera Icon",
+                    modifier = Modifier.size(ButtonDefaults.IconSize)
+                )
+                Spacer(Modifier.size(ButtonDefaults.IconSpacing))
+                Text("Take a picture")
             }
 
-            RoundedImage(150.dp)
+            Spacer(Modifier.size(8.dp))
+
+            Image(
+                Icons.Outlined.Image,
+                "Travel picture",
+                contentScale = ContentScale.Fit,
+                colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onPrimary),
+                modifier = Modifier
+                    .size(128.dp)
+                    .clip(CircleShape)
+                    .background(MaterialTheme.colorScheme.primary)
+                    .padding(36.dp)
+            )
         }
     }
 }
