@@ -10,6 +10,7 @@ import androidx.navigation.toRoute
 import com.example.traveldiary.ui.screens.addtravel.AddTravelScreen
 import com.example.traveldiary.ui.screens.addtravel.AddTravelViewModel
 import com.example.traveldiary.ui.screens.home.HomeScreen
+import com.example.traveldiary.ui.screens.home.HomeViewModel
 import com.example.traveldiary.ui.screens.settings.SettingsScreen
 import com.example.traveldiary.ui.screens.settings.SettingsViewModel
 import com.example.traveldiary.ui.screens.traveldetails.TravelDetailsScreen
@@ -30,7 +31,9 @@ fun TravelDiaryNavGraph(navController: NavHostController) {
         startDestination = TravelDiaryRoute.Home
     ) {
         composable<TravelDiaryRoute.Home> {
-            HomeScreen(navController)
+            val homeVm = koinViewModel<HomeViewModel>()
+            val state by homeVm.state.collectAsStateWithLifecycle()
+            HomeScreen(state, navController)
         }
         composable<TravelDiaryRoute.TravelDetails> { backStackEntry ->
             val route = backStackEntry.toRoute<TravelDiaryRoute.TravelDetails>()
