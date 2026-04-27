@@ -58,8 +58,13 @@ fun HomeScreen(
         },
         topBar = { AppBar("TravelDiary", navController) }
     ) { contentPadding ->
-        LazyColumn(
-            modifier = Modifier.padding(contentPadding)
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(2),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
+            modifier = Modifier
+                .padding(contentPadding)
+                .padding(16.dp)
         ) {
             items(trips) {
                 TravelItem(it)
