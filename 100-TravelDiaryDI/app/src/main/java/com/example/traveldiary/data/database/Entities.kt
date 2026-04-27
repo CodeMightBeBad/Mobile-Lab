@@ -10,5 +10,5 @@ data class Trip(
     @ColumnInfo val name: String,
     @ColumnInfo val date: String,
     @ColumnInfo val description: String,
-    @ColumnInfo val imageUri: String?
+    @ColumnInfo val imageUri: String? = null
 )
