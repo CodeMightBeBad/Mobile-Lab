@@ -1,9 +1,13 @@
 package com.example.traveldiary.ui.screens.addtravel
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.traveldiary.data.database.Trip
+import com.example.traveldiary.data.repositories.TripsRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
 data class AddTravelState(
     val destination: String = "",
@@ -14,16 +18,20 @@ data class AddTravelState(
 data class AddTravelActions(
     val setDestination: (String) -> Unit,
     val setDate: (String) -> Unit,
-    val setDescription: (String) -> Unit
+    val setDescription: (String) -> Unit,
+    val saveTravel: (Trip) -> Unit
 )
 
-class AddTravelViewModel : ViewModel() {
+class AddTravelViewModel(repository: TripsRepository) : ViewModel() {
     private val _state = MutableStateFlow(AddTravelState())
     val state = _state.asStateFlow()
 
     val actions = AddTravelActions(
-        { destination -> _state.update { it.copy(destination = destination) } },
-        { date -> _state.update { it.copy(date = date) } },
-        { description -> _state.update { it.copy(description = description) } }
+        setDestination = { destination -> _state.update { it.copy(destination = destination) } },
+        setDate = { date -> _state.update { it.copy(date = date) } },
+        setDescription = { description -> _state.update { it.copy(description = description) } },
+        saveTravel = { trip -> viewModelScope.launch {
+            repository.upsert(trip)
+        }}
     )
 }

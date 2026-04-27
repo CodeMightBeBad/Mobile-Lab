@@ -31,7 +31,7 @@ val appModule = module {
 
     viewModel { HomeViewModel(get()) }
 
-    viewModel { AddTravelViewModel() }
+    viewModel { AddTravelViewModel(get()) }
 
     viewModel { SettingsViewModel(get()) }
 }
